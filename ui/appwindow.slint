@@ -1,17 +1,71 @@
-import { Button, VerticalBox } from "std-widgets.slint";
+import { AboutSlint, Button, VerticalBox, GridBox } from "std-widgets.slint";
+import { Field } from "field.slint";
 
-export component AppWindow inherits Window {
-    in-out property<int> counter: 42;
-    callback request-increase-value();
-    VerticalBox {
-        Text {
-            text: "Counter: \{root.counter}";
-        }
-        Button {
-            text: "Increase value";
-            clicked => {
-                root.request-increase-value();
+
+export global ImageLogic {
+    callback image_pressed(int) -> image;
+}
+
+component Field inherits Rectangle {
+    property <bool> isEmpty: true;
+    in-out property <int> idx;
+    in-out property <image> img: @image-url("Empty.png");
+    width: 64px;
+    height: 64px;
+    background: #ffffff;
+
+    Image {
+        source: img;
+        width: parent.width;
+        height: parent.height;
+    }
+
+    TouchArea {
+        clicked => {
+            if (isEmpty) {
+                isEmpty = false;
+                img = ImageLogic.image_pressed(idx);
             }
+        }
+    } 
+}
+
+export component Game inherits Window {
+    title: "Tic-Tac-Toe";
+
+    GridLayout {
+        padding: 50px;
+        spacing: 5px;
+        Row {
+            Field { idx: 0; }
+            Field { idx: 1; }
+            Field { idx: 2; }
+        }
+        Row {
+            Field { idx: 3; }
+            Field { idx: 4; }
+            Field { idx: 5; }
+        }
+        Row {
+            Field { idx: 6; }
+            Field { idx: 7; }
+            Field { idx: 8; }
         }
     }
 }
+
+// export component AppWindow inherits Window {
+//     in-out property<int> counter: 42;
+//     callback request-increase-value();
+//     VerticalBox {
+//         Text {
+//             text: "Counter: \{root.counter}";
+//         }
+//         Button {
+//             text: "Increase value";
+//             clicked => {
+//                 root.request-increase-value();
+//             }
+//         }
+//     }
+// }

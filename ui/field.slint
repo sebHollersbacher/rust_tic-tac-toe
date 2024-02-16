@@ -1,0 +1,21 @@
+import { AboutSlint, Button, VerticalBox, GridBox } from "std-widgets.slint";
+
+export component Field inherits Rectangle {
+    in-out property<int> counter: 42;
+    callback request-increase-value();
+    width: 64px;
+    height: 64px;
+    background: #ffffff;
+
+    Image {
+        source: @image-url("x.png");
+        width: parent.width;
+        height: parent.height;
+    }
+
+    TouchArea {
+        clicked => {
+            root.request-increase-value();
+        }
+    } 
+}
