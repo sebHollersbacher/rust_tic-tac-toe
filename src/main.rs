@@ -49,25 +49,21 @@ impl GameField {
 
         // row
         if self.field[row*3] == self.field[(row*3)+1] && self.field[row*3] == self.field[(row*3)+2]{
-            println!("row");
             win = true;
         }
 
         // col
         if self.field[col] == self.field[col+3] && self.field[col] == self.field[col+6]{
-            println!("col");
             win = true;
         }
 
         // main diagonal
         if col == row && self.field[0] == self.field[4] && self.field[0] == self.field[8]{
-            println!("md");
             win = true;
         }
 
         // anti-diagonal
         if (idx == 2 || idx == 4 || idx == 6) && self.field[2] == self.field[4] && self.field[2] == self.field[6]{
-            println!("ad");
             win = true;
         }
 
