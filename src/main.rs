@@ -43,6 +43,17 @@ impl GameField {
     }
 
     fn check_win(&self, idx: i32) -> bool {
+        let row = idx / 3;
+        let col = idx % 3;
+        let row = row as usize;
+        let col = col as usize;
+
+        if self.field[row] == self.field[row+1] && self.field[row] == self.field[row+2]
+        || self.field[col] == self.field[col+3] && self.field[col] == self.field[col+6] {
+            println!("Won")
+        }
+
+        println!("col: {}, row: {}", col, row);
         true
     }
 }
