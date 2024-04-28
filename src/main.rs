@@ -43,18 +43,35 @@ impl GameField {
     }
 
     fn check_win(&self, idx: i32) -> bool {
-        let row = idx / 3;
-        let col = idx % 3;
-        let row = row as usize;
-        let col = col as usize;
+        let row = (idx / 3) as usize;
+        let col = (idx % 3) as usize;
+        let mut win = false;
 
-        if self.field[row] == self.field[row+1] && self.field[row] == self.field[row+2]
-        || self.field[col] == self.field[col+3] && self.field[col] == self.field[col+6] {
-            println!("Won")
+        // row
+        if self.field[row*3] == self.field[(row*3)+1] && self.field[row*3] == self.field[(row*3)+2]{
+            println!("row");
+            win = true;
         }
 
-        println!("col: {}, row: {}", col, row);
-        true
+        // col
+        if self.field[col] == self.field[col+3] && self.field[col] == self.field[col+6]{
+            println!("col");
+            win = true;
+        }
+
+        // main diagonal
+        if col == row && self.field[0] == self.field[4] && self.field[0] == self.field[8]{
+            println!("md");
+            win = true;
+        }
+
+        // anti-diagonal
+        if (idx == 2 || idx == 4 || idx == 6) && self.field[2] == self.field[4] && self.field[2] == self.field[6]{
+            println!("ad");
+            win = true;
+        }
+
+        win
     }
 }
 
